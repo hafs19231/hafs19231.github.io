@@ -57,7 +57,7 @@
 {% capture script %}/assets/js/dist/{{ type }}.min.js{% endcapture %}
 <script defer src="{{ script | relative_url }}"></script>
 
-{% if page.math %}
+{% if page.mathjax %}
   <!-- MathJax -->
   <script>
   /* see: <https://docs.mathjax.org/en/latest/options/input/tex.html#tex-options> */
@@ -77,6 +77,27 @@
   <script src="{{ site.data.assets[origin].polyfill.js | relative_url }}"></script>
   <script id="MathJax-script" async src="{{ site.data.assets[origin].mathjax.js | relative_url }}">
   </script>
+{% endif %}
+
+{% if page.math %}
+    <!-- KaTeX -->
+    <link rel="stylesheet" href="{{ site.data.assets[origin].katex.css | relative_url }}">
+    <script src="{{ site.data.assets[origin].katex.js | relative_url }}"></script>
+
+    <script src="{{ site.data.assets[origin].katex.auto-render.js | relative_url }}"></script>
+
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      renderMathInElement(document.body, {
+        delimiters: [
+          {left: "$$", right: "$$", display: true},
+          {left: "\\[", right: "\\]", display: true},
+          {left: "$", right: "$", display: false},
+          {left: "\\(", right: "\\)", display: false}
+        ]
+      });
+    });
+    </script>
 {% endif %}
 
 <!-- commons -->
